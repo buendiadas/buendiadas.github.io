@@ -95,7 +95,7 @@
                               <a class="tag" href="/tags/#ENS,Ethereum,Tutorial" title="ENS,Ethereum,Tutorial">ENS,Ethereum,Tutorial</a>
                             
                         </div>
-                        <h1>Analizando DNS para después descentralizarlo con ENS</h1>
+                        <h1>Analizando DNS para después descentralizarlo con ENS [Spanish]</h1>
                         <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by Carlos Buendía on
@@ -287,8 +287,17 @@
 <p><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$host</span> -a buendia.io</div><div class="line">;; ANSWER SECTION:</div><div class="line">buendia.io.		1642	IN	MX	20 eforward5.registrar-servers.com.</div><div class="line">buendia.io.		1642	IN	MX	10 eforward2.registrar-servers.com.</div><div class="line">buendia.io.		1642	IN	MX	15 eforward4.registrar-servers.com.</div><div class="line">buendia.io.		1642	IN	MX	10 eforward1.registrar-servers.com.</div><div class="line">buendia.io.		1642	IN	MX	10 eforward3.registrar-servers.com.</div><div class="line">buendia.io.		753	IN	A	192.30.252.153</div><div class="line">buendia.io.		753	IN	A	192.30.252.154</div></pre></td></tr></table></figure></p>
 <p>En el cual podemos comprobar, por ejemplo, que el dominio <a href="http://buendia.io" target="_blank" rel="external">buendia.io</a> tiene:</p>
 <ul>
-<li>Registros tipo &quot;A&quot; (IPv4) del host a IP's: <figure class="highlight sh"><figcaption><span>192.30.252.153```, ```sh 192.30.252.154```</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">- Registros tipo <span class="string">"MX"</span> (Mail Exchange) al servidor: eforward5.registrar-servers.com</div><div class="line"></div><div class="line"><span class="comment">### Name Servers</span></div><div class="line"></div><div class="line">Aplicación en un servidor que contiene la información sobre el arbol, la cual responde a las queries para aquellos dominios de los que tiene autoridad (estructura jerárquica) y reenvía las peticiones a otros dominios de los que no tiene autoridad a otro resolver, lo cual recursivamente permite acceder a todos los dominios en un árbol.</div><div class="line"></div><div class="line">Podemos observar donde se encuentra el Nameserver al que estamos accediendo a través del resolver haciendo un ``<span class="variable">$nslookup</span>``:</div><div class="line"></div><div class="line">```shell</div><div class="line"><span class="variable">$nslookup</span> buendia.io</div><div class="line"></div><div class="line">Server:		192.168.0.1</div><div class="line">Address:	192.168.0.1<span class="comment">#53</span></div><div class="line"></div><div class="line">Non-authoritative answer:</div><div class="line">Name:	buendia.io</div><div class="line">Address: 192.30.252.154</div><div class="line">Name:	buendia.io</div><div class="line">Address: 192.30.252.153</div></pre></td></tr></table></figure></li>
+<li>
+<p>Registros tipo &quot;A&quot; (IPv4) del host a IP's: <code>sh 192.30.252.153</code>, <code>sh 192.30.252.154</code></p>
+</li>
+<li>
+<p>Registros tipo &quot;MX&quot; (Mail Exchange) al servidor: eforward5.registrar-servers.com</p>
+</li>
 </ul>
+<h3><span id="name-servers">Name Servers</span></h3>
+<p>Aplicación en un servidor que contiene la información sobre el arbol, la cual responde a las queries para aquellos dominios de los que tiene autoridad (estructura jerárquica) y reenvía las peticiones a otros dominios de los que no tiene autoridad a otro resolver, lo cual recursivamente permite acceder a todos los dominios en un árbol.</p>
+<p>Podemos observar donde se encuentra el Nameserver al que estamos accediendo a través del resolver haciendo un <code>$nslookup</code>:</p>
+<p><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash">nslookup buendia.io</span></div><div class="line"></div><div class="line">Server:		192.168.0.1</div><div class="line">Address:	192.168.0.1#53</div><div class="line"></div><div class="line">Non-authoritative answer:</div><div class="line">Name:	buendia.io</div><div class="line">Address: 192.30.252.154</div><div class="line">Name:	buendia.io</div><div class="line">Address: 192.30.252.153</div></pre></td></tr></table></figure></p>
 <p>Lo cual nos devuelve la dirección del NameServer de autoridad en mi red local (Mi router), y la respuesta obtenido.</p>
 <h3><span id="resolvers">Resolvers</span></h3>
 <p><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">             Local Host                        |  Foreign</div><div class="line">                                               |</div><div class="line">+---------+               +----------+         |  +--------+</div><div class="line">|         | user queries  |          |queries  |  |        |</div><div class="line">|  User   |--------------&gt;|          |---------|-&gt;|Foreign |</div><div class="line">| Program |               | Resolver |         |  |  Name  |</div><div class="line">|         |&lt;--------------|          |&lt;--------|--| Server |</div><div class="line">|         | user responses|          |responses|  |        |</div><div class="line">+---------+               +----------+         |  +--------+</div><div class="line">                            |     A            |</div><div class="line">            cache additions |     | references |</div><div class="line">                            V     |            |</div><div class="line">                          +----------+         |</div><div class="line">                          |  cache   |         |</div><div class="line">                          +----------+         |</div></pre></td></tr></table></figure></p>
@@ -388,12 +397,12 @@
                 <ul class="pager">
                     
                         <li class="previous">
-                            <a href="/2017/10/08/ENS-Ethereum-Name-Service-en-detalle/" data-toggle="tooltip" data-placement="top" title="Tutorial. ENS en detalle.">&larr; Previous Post</a>
+                            <a href="/2017/10/08/ENS-Ethereum-Name-Service-en-detalle/" data-toggle="tooltip" data-placement="top" title="Tutorial. ENS en detalle. [Spanish]">&larr; Previous Post</a>
                         </li>
                     
                     
                         <li class="next">
-                            <a href="/2017/03/25/curso-ethereum/" data-toggle="tooltip" data-placement="top" title="Curso de introducción Ethereum para desarrolladores">Next Post &rarr;</a>
+                            <a href="/2017/03/25/curso-ethereum/" data-toggle="tooltip" data-placement="top" title="Curso de introducción Ethereum para desarrolladores [Spanish]">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
