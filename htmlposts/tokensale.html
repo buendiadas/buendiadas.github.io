@@ -119,309 +119,88 @@
   <body>
     <textarea id="source">
 
-      # ETHEREUM
-      ## CREACIÓN DE UN EVENTO DE GENERACIÓN DE TOKENS
+# Intro
 
-      ### Carlos Buendía  ([@buendiadas](https://twitter.com/buendiadas))
+---
 
-    ---
+ - Glue of substance 
+ - Collaborative data sharing
 
-    # AGENDA
 
-    1. *Introducción*
-    2. Creación de los Smart Contracts
-    3. Auditoría
-    4. Ciberseguridad
-    5. Protección posterior
+## Ethereum as a state singleton¿?
 
-    ---
+Gav Wood: 
 
-    # **1 INTRODUCCIÓN**
+*“Ethereum is a collection of non-localized singleton programmable data structures*”. (DevCon1, 2015)
 
-    ---
+![image](https://image.slidesharecdn.com/theworldcomputershort-151105104423-lva1-app6892/95/the-world-computer-short-8-638.jpg?cb=1446720321)
 
-    # TOKEN SALE
+---
+## From ID to resources
 
-    ##  ¿Qué es una token sale /ICO?
+- uPort creates a single instance of a user identity
+- Linked data should be 
 
-    - Intercambio de tokens o cryptomonedas
-    - Realizado generalmente a través de un Smart Contract.
-    - Generalmente, este evento coincide con el nacimiento del token (sin embargo no es una condición necesaria)*
+---
 
-    ---
+## Tech Matrix
 
-    # SMART CONTRACT
+|          ID           | Storage                   | Roles                                  | Metadata            | Computation     | Transmission                |
+| :-------------------: | ------------------------- | -------------------------------------- | ------------------- | --------------- | --------------------------- |
+|     uPort limited     | Independent integration   | Certificate Authority                  | Plain text Metadata | Simple HTH      |                             |
+| HD-Wallets over uPort | Transparent multi-storage | Fully Decentralized Roles. Reputation. | IPLD                | TrueBit, Plasma | Selective packet disclosure |
 
-    ## ¿Qué es un Smart Contract? ##
+---
 
-       - Conjunto de instrucciones subidas a la blockchain (generalmente a la de Ethereum).
-       - Capacidad de almacenamiento persistente única
-       - Ejecución determinista: Utilización de un máquina virtual única (EVM).
-          - Mecanismos económicos (futuro)
-          - Cryptográficos (pasado).
-    ---
+## Linnia
 
-    # TOKEN
+- The Linnia protocol facilitates data sharing and permissioning
+- Collabore on data without intermediaries.
+- Add data related to any another user by using that user public key.
+- Provenance of the data, by enabling other Health authorities or certified actors to contribute to users profile
 
-    ## ¿Y qué es un Token?
+---
 
-     - Uno de los primeros casos de uso de Ethereum
-     - Programación de un *libro contable* en la EVM
-     - Capacidad computacional: Instrucciones de ejecución
-     - Capacidad almacenamiento: Registro contable.
+## ID
 
-    ---
+![image](https://www.qkldx.net/assets/uploads/files/1505050516578-24cccaaf-dc9e-4cdf-ae27-f0d6f7ee97e5-image.png)
 
-    # EJEMPLO: METACOIN
-    ```javascript
+- Master Keys: Keys to Identity
+  - Derived 
+  - 
 
-    contract MetaCoin {
-      mapping (address => uint) balances; // <-- STORAGE!!
+- 
 
-    	function MetaCoin() {
-    		balances[tx.origin] = 10000;
-    	}
+---
 
-    	function sendCoin(address receiver, uint amount) returns(bool sufficient) {
-    		if (balances[msg.sender] < amount) return false;
-    		balances[msg.sender] -= amount;
-    		balances[receiver] += amount;
-    		return true;
-    	}
+## Storage
 
-    	function getBalance(address addr) returns(uint) {
-    		return balances[addr];
-    	}
-    }
-    ```
+- Current Status: Resource centralization
+- P2P solutions are proposed
+- *Torrent* 
+- *Web3.0*: IPFS, Swarm, StorJ, MaidSafe, Sia
+- *Local Storage*
+- Self sovereign data
 
-    ---
+​
 
-    # TOKEN STANDARD
+---
 
-    ## ¿QUÉ ES UN ERC20?
+## Metadata
 
-      - Standard (interfaz) sobre las funciones a implementar
-      - Ethereum Request for Comments (Recuerdas RFC?)
-      - Fácil [interoperabilidad](https://etherscan.io/token-search)
+- Discoverability
+- Plain data​
+- Studied technologies
+  - HE
+  - Garble circuits
+  - SMPC
+  - Enclaves
 
-    ---
-    # ERC20
+---
 
-    ```javascript
+## Roles
 
-    // https://github.com/ethereum/EIPs/issues/20
-     2 contract ERC20 {
-     3     function totalSupply() constant returns (uint totalSupply);
-     4     function balanceOf(address _owner) constant returns (uint balance);
-     5     function transfer(address _to, uint _value) returns (bool success);
-     6     function transferFrom(address _from, address _to, uint _value) returns (bool success);
-     7     function approve(address _spender, uint _value) returns (bool success);
-     8     function allowance(address _owner, address _spender) constant returns (uint remaining);
-     9     event Transfer(address indexed _from, address indexed _to, uint _value);
-    10     event Approval(address indexed _owner, address indexed _spender, uint _value);
-    11 }
-    ```
-
-    ---
-    # CROWDSALE
-
-
-    ![image](img/social-crowdsale.jpg)
-
-    ---
-
-    # HANDS ON
-
-    ## ¿CÓMO UTILIZAMOS TODO ESTO?
-
-    Principalmente el desarrollo de una ICO se concreta en el desarrollo de Smart Contracts para:
-
-     - La creación de un token
-     - La creación de un contrato de crowdsale
-
-    **Adicionalmente pueden aparecer otros contratos (vesting, lock-ups,bounties)**
-
-    ---
-
-    # ** 3. DESARROLLO**
-    ## GESTIÓN DE BUENAS PRÁCTICAS
-
-
-    ---
-
-    # ¡ERROR!
-
-    ## ¡Creemos una ICO!
-
-    - **CEO **: "Tras seguir las buenas prácticas del curso de ICOs, hemos decidido que esta es la estructura óptima para nuestro negocio"
-
-
-    - **New SC Developer:** "Solidity es como Javascript! Eso es una *mariconada*, está hecho en 2 días"
-
-
-    - **CEO** "Sabía yo que eso de los desarrolladores estrellita era todo humo..."
-
-    ---
-
-    # THE UGLY TRUTH
-
-    - El Smart Contract de contribución de una ICO está diseñado para mover  ** dinero ajeno** (*normalmente, mucho*)
-
-    - Tanto Ethereum, como el lenguaje de programación Solidity están en una fase beta (bugs)
-
-    - El desarrollo (profesional, responsable ) de un Smart Contract suele pasar por las siguientes fases:
-
-      - Planteamiento de la problemática (**50%**)
-      - Creación de Tests (**45%**)
-      - Desarrollo del Smart Contract (**5%**)
-
-    ---
-
-    # [FILOSOFÍA](https://github.com/ConsenSys/smart-contract-best-practices)
-
-      - Preparate para el error
-
-      - Desarrolla con cuidado
-
-      - Crea contratos simples
-
-      - Conoce los últimos patrones
-
-      - **Conoce cómo funciona la blockchain (internamente)**
-
-    ---
-
-    # DESARROLLANDO
-
-      - Test Driven Development (TDD), Mocha o Python para los tests
-
-      - Utiliza Frameworks de desarrollo en blockchain:
-        -Truffle
-        -Populus
-        -Dapple
-
-      - Prepara un documento de especificaciones.
-
-      - Utiliza librerías estandard (Zeppelin)
-
-      - Termina con una version estable del Token, almacena el **Hash**, y, ¡podemos pasar a la auditoría!
-
-    ---
-
-    # ** 3. AUDITORÍA **
-    ## GESTIÓN DE BUENAS PRÁCTICAS
-
-    ---
-
-    # BUENAS PRÁCTICAS
-
-      - Todo contrato que intervenga en la ICO debe ser auditado, al menos una vez.
-
-      - Utiliza auditoras con experiencia en el sector. ¡Haz tu propia due dilligence!
-
-      - ¿Tu auditor es tu desarrollador?.
-
-      - ¿Tu auditor ha sido pagado con tokens?.
-
-      ** Por caro que sea, una auditoría aliviará la presión en caso de que algo salga mal**
-
-    ---
-
-    # EJEMPLOS
-
-      - Consensys
-
-      - Open Zeppelin
-
-      - Validity Labs
-
-      - Peter Vessenes (Freelance)
-
-      - Jordi Baylina (Freelance)
-
-    ---
-
-    # ** 4. CIBERSEGURIDAD**
-    ## ¿Para qué aprender Solidity, si es mucho más facil?
-
-    ---
-
-      #  TIPOS DE ATAQUE
-
-
-      ![phising.png](img/phising.png)
-
-    ---
-
-    # PHISHING
-
-      - El mayor vector de ataque de la ICO está en las personas
-
-      - Ten una única fuente  de verdad, la dirección **sólo** será publicada aquí.
-
-      - Comunica constantemente de este canal y su unicidad.
-
-      - Proteje contraseñas de todos los miembros del equipo, en especial de los principales miembros.
-
-      - Modifica todas las contraseñas recursivamente.
-
-      - Vigila los medios y ten un plan de contingencia
-
-    ---
-
-    # PENETRACIÓN WEB
-
-    ![pen.png](img/pen.png)
-
-    ---
-
-    # ** 5. TRAS LA ICO**
-    ## ENHORABUENA...!
-    ---
-
-    # PROTEJE TUS CUENTAS
-
-     - No mantengas todo el dinero en una misma dirección.
-
-     - Utiliza escrows y multisig para mover los fondos. Estandard: Estructuras 3/4, 4/6 etc...
-
-     - Proteje físicamente las claves privadas.
-
-     - Evita en la medida de los posible almacenar dinero en contratos.
-
-    ---
-
-    # EJ: PARITY WALLET
-
-    ![img/parity.jpeg](img/parity.jpeg)
-
-    ---
-
-    # VESTING CONTRACTS
-
-    - Utiliza contratos de vesting para el equipo.
-
-    - Permitirán que los miembros del equipo solo puedan desbloquear los tokens a lo largo del tiempo.
-
-    - Razón: ¡Evita ventas rápidas!
-
-    ---
-
-    # DA VALOR A TUS TOKENS.
-
-    Lo habéis conseguido, tenéis tokens de vuestra propia compañía.
-
-    ¿Tenéis un plan para mantener su valor a largo plazo?
-
-    ---
-    # CONTINÚA CON LAS BUENAS PRÁCTICAS
-
-    # Gracias
-
-
-
-    ---
+ 
     </textarea>
 
     <a href="ethereum2.html">
